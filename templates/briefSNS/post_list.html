@@ -10,7 +10,7 @@
       <!-- 「url 'アプリ名:逆引きURL' 渡されるモデル.pk」 という描き方 -->
       {% if post.author.icon %}
       <td><img src="{{ post.author.icon.url }}" width="50" height="50" alt=""></td>
-      {% if endif %}
+      {% endif %}
       <td><a href="{% url 'accounts:profile' post.author %}">{{ post.author }}</a></td>
       <td>{{ post.text }}</td>
       <td>
