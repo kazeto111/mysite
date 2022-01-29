@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>{{ post.title }}</p>
+<!-- actionにはサーバのどのURLに対して情報を送信する -->
+<!-- actionを空欄にすると現在開いている URL = /blog/post_create に値を返すので、views.py の PostCreateView が再度呼び出されることになる -->
+<form action="" method="POST">
+  <table class="table">
+    <tr>
+      <td>{{ form.text }}</td>
+    </tr>
+  </table>
+  <button type="submit" class="btn btn-primary">投稿する</button>
+  {% csrf_token %}
+</form>
+{% endblock %}

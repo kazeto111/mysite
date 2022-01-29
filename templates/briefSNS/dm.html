@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- エンターキーによるボタン押下を行うために、<button>ではなく<form>と<input type="submit">を使用。
+ボタン押下(=submit)時にページリロードが行われないように、onsubmitの設定の最後に"return false;"を追加。-->
+<div>{{partner.username}}さんとのチャットを楽しみましょう</div>
+<form action="" onsubmit="onsubmitButton_Send();">
+    Message : <input type="text" id="input_message" autocomplete="off" autofocus /><input type="submit" value="Send" />
+</form>
+
+<table class="table">
+    <thead>
+    </thead>
+    <tbody id="list_message"></tbody>
+</table>
+
+<table class="table">
+    <thead>
+    </thead>
+    <tbody>
+        {% for message in messages %}
+        <tr>
+        <!-- 「url 'アプリ名:逆引きURL' 渡されるモデル.pk という描き方 -->
+        <td>{{ message.content }}</td>
+        <td>{{ message.myname }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    {{ for_script|json_script:"for_script" }}
+<script>
+
+    const g_elementInputMessage = document.getElementById( "input_message" );
+    const g_elementListMessage = document.getElementById( "list_message" );
+    var data_from_view = JSON.parse(document.getElementById("for_script").textContent);
+    const partnerpk = data_from_view["partnerpk"]
+    const userpk = data_from_view["userpk"]
+    const partnername = data_from_view["partnername"]
+    const messagengername = data_from_view["username"]
+
+    // WebSocketオブジェクト
+    let ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    const url = ws_scheme + "://" + window.location.host + "/ws/briefSNS/dm/" + partnername + "/" + messagengername
+    const g_socket = new WebSocket(url);
+
+    // 「Send」ボタンを押したときの処理
+    function onsubmitButton_Send()
+    {
+        // 送信用テキストHTML要素からメッセージ文字列の取得
+        let strMessage = g_elementInputMessage.value;
+        if( !strMessage )
+        {
+            return;
+        }
+        g_elementInputMessage.value = "";
+        event.preventDefault();
+
+        // WebSocketを通したメッセージの送信
+        g_socket.send( JSON.stringify( { "message": strMessage, "partnerpk":partnerpk, "userpk":userpk, "messagengername":messagengername} ) );
+
+
+        // 送信用テキストHTML要素の中身のクリア
+
+        return false
+    }
+
+    // WebSocketからメッセージ受信時の処理
+    g_socket.onmessage = ( event ) =>
+    {
+        // テキストデータをJSONデータにデコード
+        let data = JSON.parse( event.data );
+
+        // メッセージの整形
+        let strMessage = data["message"];
+        let messagengername = data["messagengername"];
+
+        // 拡散されたメッセージをメッセージリストに追加
+        // let elementLi = document.createElement( "tr" );
+        let elementTb1 = document.createElement( "td" );
+        let text1 = document.createTextNode(messagengername);
+        elementTb1.appendChild(text1);
+
+        let elementTb2 = document.createElement( "td" );
+        let text2 = document.createTextNode(strMessage);
+        elementTb2.appendChild(text2);
+
+        let elementTr = document.createElement( "tr" );
+        elementTr.appendChild(elementTb2)
+        elementTr.appendChild(elementTb1)
+
+        g_elementListMessage.prepend( elementTr ); // リストの一番上に追加
+        //g_elementListMessage.append( elementLi );    // リストの一番下に追加
+    };
+
+    // WebSocketクローズ時の処理
+    g_socket.onclose = ( event ) =>
+    {
+        // ウェブページを閉じたとき以外のWebSocketクローズは想定外
+        console.error( "Unexpected : Chat socket closed." );
+    };
+</script>
+{% endblock %}

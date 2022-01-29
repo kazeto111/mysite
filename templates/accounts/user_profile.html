@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="profile_page">
+    <div id="user_post">
+        <p class="list-t">{{ User.username }}さんの投稿一覧</p>
+    </div>
+    <table class="table">
+    <div>
+        {% for post in Post_list %}
+        <tr>
+            <td>{{ post.author }}</a></td>
+            <td>{{ post.text }}</td>
+            <td>
+                <!-- superuserでログインしている時にのみ表示 -->
+                {% if User.is_superuser %}
+                <!-- HTMLを アプリ名_モデル名_change にすると admin でそのまま編集できる -->
+                <a href="{% url 'briefSNS:post_update' post.pk %}">編集</a>
+                {% endif %}
+              </td>
+              <td>
+                {% if User.is_superuser %}
+                <a href="{% url 'briefSNS:post_delete' post.pk %}">削除</a>
+                {% endif %}
+              </td>
+        </tr>
+        {% endfor %}
+    </div>
+    </table>
+</div>
+
+<style type="text/css">
+* {
+    margin: 0;
+    padding: 0;
+    background-repeat: repeat-y;
+}
+#profile_page {
+    padding-left: 3%;
+}
+#user_status {
+    display: inline-block;
+}
+.followBtn {
+    display: inline-block;
+    border: 1.5px solid #ddd;
+    padding: 2px 8px;
+    font-size: 16.5px;
+}
+#user_post {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 70px;
+}
+.list-t {
+    font-size: 1.9rem;
+    font-weight: 700;
+}
+</style>
+{% endblock %}
