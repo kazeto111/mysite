@@ -1,1 +1,9 @@
-<h1>Hello, from Django!</h1>
+<h1>DuMitterにようこそ</h1>
+<p>
+    <div>すでにアカウントを持っている場合</div>
+    <a href="{% url 'briefSNS:post_list' %}">投稿をみる</a>
+</p>
+<p>
+    <div>まだアカウントを持っていない場合</div>
+    <a href="{% url 'accounts:signup' %}">アカウントを作成する</a>
+</p>
