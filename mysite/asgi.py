@@ -33,8 +33,10 @@ from channels.routing import ProtocolTypeRouter
 from channels.routing import URLRouter
 from channels.auth import AuthMiddlewareStack
 from . import routing
+#セキュリティ(csrf対策)のため追加
+from channels.security.websocket import AllowedHostsOriginValidator
 
 application = ProtocolTypeRouter( {
     'http': get_asgi_application(),
-    'websocket': AuthMiddlewareStack( URLRouter( routing.websocket_urlpatterns ) ),
+    'websocket': AllowedHostsOriginValidator(AuthMiddlewareStack( URLRouter( routing.websocket_urlpatterns ) )),
 } )

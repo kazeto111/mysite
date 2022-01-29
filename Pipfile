@@ -11,6 +11,7 @@ gunicorn = "*"
 django-heroku = "*"
 dj-database-url = "*"
 console = "*"
+channels-redis = "*"
 
 [dev-packages]
 
