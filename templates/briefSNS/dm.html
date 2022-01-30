@@ -40,7 +40,11 @@
 
     // WebSocketオブジェクト
     let ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
-    const url = ws_scheme + "://" + location.host + ":8000" + "/ws/briefSNS/dm/" + partnername + "/" + messagengername
+    let port = location.port
+    if (port == null || port == "") {
+    port = 8000;
+    }
+    const url = ws_scheme + "://" + location.hostname + ":" + port + "/ws/briefSNS/dm/" + partnername + "/" + messagengername
     console.log(location.port)
     console.log("aaa")
     console.log(url)
