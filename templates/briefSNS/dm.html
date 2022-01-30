@@ -40,7 +40,7 @@
 
     // WebSocketオブジェクト
     let ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
-    let port = location.port
+    let port = process.env.PORT
     if (port == null || port == "") {
     port = 8000;
     }
