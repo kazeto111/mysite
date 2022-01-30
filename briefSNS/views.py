@@ -5,7 +5,7 @@ from .forms import PostCreateForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth import get_user_model
-import json
+import os
 
 class IndexView(generic.TemplateView):
     template_name = 'briefSNS/index.html'
@@ -64,7 +64,8 @@ class DMview(LoginRequiredMixin, generic.TemplateView):
         context['messages'] = messages
         context['partnerpk'] = partner.pk
         context['userpk'] = user.pk
-        context['for_script'] =  {"partnername":partnername, "username":username, "partnerpk":partner.pk, "userpk":user.pk}
+        port = os.environ["PORT"]
+        context['for_script'] =  {"partnername":partnername, "username":username, "partnerpk":partner.pk, "userpk":user.pk, "port":port}
         return context
     
     def form_valid(self, form):
