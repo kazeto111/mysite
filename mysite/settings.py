@@ -152,7 +152,7 @@ ASGI_APPLICATION = 'mysite.asgi.application'
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': { 'hosts': [('127.0.0.1', 6379), ("rediss://:p1bddb5e6b828eb884cb1e187a95f589589e022606f9d3f96b00e011063085766@ec2-52-71-201-235.compute-1.amazonaws.com:17000")], },
+        'CONFIG': { 'hosts': [('127.0.0.1', 6379), (os.environ.get('REDIS_URL'))], },
     },
 }
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
