@@ -66,7 +66,7 @@ class DMview(LoginRequiredMixin, generic.TemplateView):
         context['userpk'] = user.pk
         port = os.environ["PORT"]
         print("portだよ", port)
-        context['for_script'] =  {"partnername":partnername, "username":username, "partnerpk":partner.pk, "userpk":user.pk, "port":port}
+        context['for_script'] =  {"partnername":partnername, "username":username, "partnerpk":partner.pk, "userpk":user.pk, "port":str(port)}
         return context
     
     def form_valid(self, form):
