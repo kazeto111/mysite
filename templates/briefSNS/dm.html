@@ -38,6 +38,7 @@
     const partnername = data_from_view["partnername"]
     const messagengername = data_from_view["username"]
     let port = data_from_view["port"]
+    console.log("from environ", port)
 
     // WebSocketオブジェクト
     let ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
@@ -45,7 +46,7 @@
     port = 8000;
     }
     const url = ws_scheme + "://" + location.hostname + ":" + port + "/ws/briefSNS/dm/" + partnername + "/" + messagengername
-    console.log(location.port)
+    console.log(port)
     console.log("aaa")
     console.log(url)
     const g_socket = new WebSocket(url);
