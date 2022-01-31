@@ -65,6 +65,7 @@ class DMview(LoginRequiredMixin, generic.TemplateView):
         context['partnerpk'] = partner.pk
         context['userpk'] = user.pk
         port = os.environ["PORT"]
+        print("portだよ", port)
         context['for_script'] =  {"partnername":partnername, "username":username, "partnerpk":partner.pk, "userpk":user.pk, "port":port}
         return context
     
