@@ -40,12 +40,9 @@
     let port = data_from_view["port"]
     console.log("from environ", port)
 
-    // WebSocketオブジェク
+    // WebSocketオブジェクト
     let ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
-    if (port == null || port == "") {
-    port = 8000;
-    }
-    const url = "https" + "://" + location.host + "/ws/briefSNS/dm/" + partnername + "/" + messagengername
+    const url = ws_scheme + "://" + location.hostname + ":" + location.port +  "/ws/briefSNS/dm/" + partnername + "/" + messagengername
     console.log(port)
     console.log("aaa")
     console.log(url)
