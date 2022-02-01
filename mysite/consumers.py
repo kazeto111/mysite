@@ -12,17 +12,20 @@ class ChatConsumer( AsyncWebsocketConsumer ):
     # WebSocket接続時の処理
     async def connect( self ):
         # グループに参加
+        print("def connectからです１")
         self.strGroupName = 'chat'
         name1, name2 = self.scope['url_route']['kwargs']['name1'], self.scope['url_route']['kwargs']['name2']
         if name1 >= name2: self.strGroupName = name1 + name2
         else: self.strGroupName = name2 + name1
         await self.channel_layer.group_add( self.strGroupName, self.channel_name )
+        print("def connectからです2")
 
         # WebSocket接続を受け入れます。
         # ・connect()でaccept()を呼び出さないと、接続は拒否されて閉じられます。
         # 　たとえば、要求しているユーザーが要求されたアクションを実行する権限を持っていないために、接続を拒否したい場合があります。
         # 　接続を受け入れる場合は、connect()の最後のアクションとしてaccept()を呼び出します。
         await self.accept()
+        print("def connectからです3")
 
     # WebSocket切断時の処理
     async def disconnect( self, close_code ):
