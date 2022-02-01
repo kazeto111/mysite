@@ -15,8 +15,7 @@ class ChatConsumer( AsyncWebsocketConsumer ):
         # グループに参加
         print("def connectからです１")
         self.strGroupName = 'chat'
-        # name1, name2 = self.scope['url_route']['kwargs']['name1'], self.scope['url_route']['kwargs']['name2']
-        name1, name2 = "aaa", "bbb"
+        name1, name2 = self.scope['url_route']['kwargs']['name1'], self.scope['url_route']['kwargs']['name2']
         if name1 >= name2: self.strGroupName = name1 + name2
         else: self.strGroupName = name2 + name1
         await self.channel_layer.group_add( self.strGroupName, self.channel_name )
