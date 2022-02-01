@@ -5,6 +5,7 @@ from channels.db import database_sync_to_async
 from briefSNS.models import Message
 from django.contrib.auth import get_user_model
 #from asgiref.sync import async_to_sync  # async_to_sync() : 非同期関数を同期的に実行する際に使用する。
+print("consumer.py")
 
 # ChatConsumerクラス: WebSocketからの受け取ったものを処理するクラス
 class ChatConsumer( AsyncWebsocketConsumer ):
