@@ -9,6 +9,7 @@ print("consumer.py")
 
 # ChatConsumerクラス: WebSocketからの受け取ったものを処理するクラス
 class ChatConsumer( AsyncWebsocketConsumer ):
+    print("chatConsumerクラス")
 
     # WebSocket接続時の処理
     async def connect( self ):
