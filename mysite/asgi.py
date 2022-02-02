@@ -38,5 +38,5 @@ from channels.security.websocket import AllowedHostsOriginValidator
 
 application = ProtocolTypeRouter( {
     'http': get_asgi_application(),
-    'websocket': AllowedHostsOriginValidator(AuthMiddlewareStack( URLRouter( routing.websocket_urlpatterns ) )),
+    'websocket': URLRouter( routing.websocket_urlpatterns ),
 } )
