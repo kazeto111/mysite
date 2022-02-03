@@ -6,6 +6,7 @@
 <div>{{partner.username}}さんとのチャットを楽しみましょう</div>
 <form action="" onsubmit="onsubmitButton_Send();">
     Message : <input type="text" id="input_message" autocomplete="off" autofocus /><input type="submit" value="Send" />
+    {% csrf_token %}
 </form>
 
 <table class="table">
