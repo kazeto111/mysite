@@ -1,4 +1,5 @@
 from email import message
+from pprint import pprint
 from django.views import generic
 from .models import Post, Message
 from .forms import PostCreateForm
@@ -66,6 +67,8 @@ class DMview(LoginRequiredMixin, generic.TemplateView):
         context['userpk'] = user.pk
         port = os.environ["PORT"]
         print("portだよ", port)
+        print("リクエスト")
+        pprint.pprint(dir(self.request))
         context['for_script'] =  {"partnername":partnername, "username":username, "partnerpk":partner.pk, "userpk":user.pk, "port":str(port)}
         return context
     
