@@ -69,7 +69,7 @@ class DMview(LoginRequiredMixin, generic.TemplateView):
         print("portだよ", port)
         print("リクエスト")
         import pprint
-        pprint.pprint(dir(self.request.META))
+        pprint.pprint(self.request.META)
         context['for_script'] =  {"partnername":partnername, "username":username, "partnerpk":partner.pk, "userpk":user.pk, "port":str(port)}
         return context
     
