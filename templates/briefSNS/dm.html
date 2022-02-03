@@ -45,11 +45,7 @@
     let ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
     //const url = ws_scheme + "://" + location.hostname + location.port +  "/briefSNS/dm/" + partnername + "/" + messagengername + "/"
     const url = ws_scheme + "://" + window.location.host + "/briefSNS/dm/" + partnername + "/" + messagengername + "/"
-    console.log(port)
-    console.log("aaa")
-    console.log(url)
     const g_socket = new WebSocket(url);
-    console.log("bbb")
 
     // 「Send」ボタンを押したときの処理
     function onsubmitButton_Send()
