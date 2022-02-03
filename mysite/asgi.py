@@ -36,7 +36,7 @@ from . import routing
 #セキュリティ(csrf対策)のため追加
 from channels.security.websocket import AllowedHostsOriginValidator
 
-application = AllowedHostsOriginValidator(AuthMiddlewareStack(ProtocolTypeRouter( {
+application = ProtocolTypeRouter( {
     'http': get_asgi_application(),
-    'websocket': URLRouter( routing.websocket_urlpatterns ),
-} )))
+    'websocket': AllowedHostsOriginValidator(AuthMiddlewareStack(URLRouter( routing.websocket_urlpatterns ))),
+} )
