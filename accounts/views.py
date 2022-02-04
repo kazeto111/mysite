@@ -13,8 +13,6 @@ def user_profile(request, username):
         'User': user_object,
         "Post_list": user_object.posts.all()
     }
-    print(dir(context["User"]))
-    print(context["User"].posts.all())
 
     return render(request, 'accounts/user_profile.html', context)
 
