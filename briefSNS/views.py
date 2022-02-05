@@ -26,11 +26,7 @@ class PostCreateView(LoginRequiredMixin,generic.CreateView):
         return context
     
     def form_valid(self, form):
-       #qryset =  form.save(commit=False)
-       #form.instance.user = self.request.user
-       #ここのauthorはモデル定義時のauthorと紐づく
        form.instance.author = self.request.user
-       #qryset.save()
        return super().form_valid(form)
 
 class PostDetailView(generic.DetailView):
@@ -48,6 +44,7 @@ class PostDeleteView(generic.DeleteView):
 class PlaygroundView(generic.TemplateView):
     template_name = "blog/playground.html"
 
+#DM.html用のクラス
 class DMview(LoginRequiredMixin, generic.TemplateView):
     template_name = "briefSNS/dm.html"
 
@@ -66,17 +63,12 @@ class DMview(LoginRequiredMixin, generic.TemplateView):
         context['partnerpk'] = partner.pk
         context['userpk'] = user.pk
         port = os.environ["PORT"]
+        #デバッグ用
         print("portだよ", port)
-        print("リクエスト")
-        import pprint
-        pprint.pprint(self.request.META)
         context['for_script'] =  {"partnername":partnername, "username":username, "partnerpk":partner.pk, "userpk":user.pk, "port":str(port)}
         return context
     
+    #認証されたユーザーのみがアクセスできるように
     def form_valid(self, form):
-       #qryset =  form.save(commit=False)
-       #form.instance.user = self.request.user
-       #ここのauthorはモデル定義時のauthorと紐づく
        form.instance.myname = self.request.user
-       #qryset.save()
        return super().form_valid(form)

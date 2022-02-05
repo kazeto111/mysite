@@ -15,10 +15,6 @@ import os
 import sys
 import dj_database_url
 
-path = "/app/mysite"
-if path not in sys.path:
-    sys.path.append(path)
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

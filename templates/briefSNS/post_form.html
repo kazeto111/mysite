@@ -2,8 +2,6 @@
 
 {% block content %}
 <p>{{ post.title }}</p>
-<!-- actionにはサーバのどのURLに対して情報を送信する -->
-<!-- actionを空欄にすると現在開いている URL = /blog/post_create に値を返すので、views.py の PostCreateView が再度呼び出されることになる -->
 <form action="" method="POST">
   <table class="table">
     <tr>
